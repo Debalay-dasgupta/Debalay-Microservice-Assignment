@@ -1,0 +1,62 @@
+# ============================================================================
+# INVENTORY SERVICE CONFIGURATION
+# ============================================================================
+# This configuration file sets up the Inventory Service with:
+# - Server port 8081 to avoid conflicts with Order Service (8080)
+# - H2 in-memory database for development and testing
+# - Liquibase for automatic database schema creation and data loading
+# - JPA/Hibernate settings for entity management
+# - Swagger/OpenAPI documentation at http://localhost:8081/swagger-ui.html
+# ============================================================================
+
+server:
+  port: 8081
+
+spring:
+  application:
+    name: inventory-service
+  
+  # H2 Database Configuration
+  # Using in-memory database that resets on application restart
+  datasource:
+    url: jdbc:h2:mem:inventorydb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  
+  # H2 Console Configuration (accessible at http://localhost:8081/h2-console)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  
+  # JPA/Hibernate Configuration
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none  # Liquibase handles schema creation
+    show-sql: true    # Log SQL statements for debugging
+    properties:
+      hibernate:
+        format_sql: true  # Format SQL logs for readability
+  
+  # Liquibase Configuration
+  # Automatically runs database migrations on application startup
+  liquibase:
+    change-log: classpath:db/changelog/inventory-master.xml
+    enabled: true
+
+# Logging Configuration
+logging:
+  level:
+    com.ecommerce.inventory: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+# Swagger/OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true

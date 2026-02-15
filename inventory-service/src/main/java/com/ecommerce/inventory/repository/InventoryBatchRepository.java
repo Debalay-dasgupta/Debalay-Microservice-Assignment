@@ -1,0 +1,21 @@
+package com.ecommerce.inventory.repository;
+
+import com.ecommerce.inventory.model.InventoryBatch;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+
+@Repository
+public interface InventoryBatchRepository extends JpaRepository<InventoryBatch, Long> {
+
+
+    List<InventoryBatch> findByProductIdOrderByExpiryDateAsc(Long productId);
+
+
+    List<InventoryBatch> findByProductIdOrderByExpiryDateDesc(Long productId);
+
+
+    boolean existsByProductId(Long productId);
+}

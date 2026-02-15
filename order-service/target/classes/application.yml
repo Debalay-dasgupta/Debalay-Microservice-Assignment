@@ -1,0 +1,57 @@
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: order-service
+  
+  # H2 Database Configuration
+  datasource:
+    url: jdbc:h2:mem:orderdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  
+  # H2 Console (accessible at http://localhost:8080/h2-console)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  
+  # JPA/Hibernate Configuration
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none  # Liquibase handles schema
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  
+  # Liquibase Configuration
+  liquibase:
+    change-log: classpath:db/changelog/order-master.xml
+    enabled: true
+
+# Inventory Service Configuration
+# URL for communicating with Inventory Service
+inventory:
+  service:
+    url: http://localhost:8081
+
+# Logging Configuration
+logging:
+  level:
+    com.ecommerce.order: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.web.reactive.function.client: DEBUG
+
+# Swagger/OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true

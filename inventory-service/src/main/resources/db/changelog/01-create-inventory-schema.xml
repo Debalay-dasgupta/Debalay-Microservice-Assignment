@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  DATABASE SCHEMA CREATION
+  ========================
+  This changelog creates the inventory_batch table with:
+  - Primary key (batch_id)
+  - Product identification fields (product_id, product_name)
+  - Quantity tracking
+  - Expiry date for FIFO (First In, First Out) batch management
+  - Index on product_id for fast lookups
+  - Index on expiry_date for efficient sorting
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="1" author="system">
+        <comment>Create inventory_batch table to track product batches with expiry dates</comment>
+        
+        <createTable tableName="inventory_batch">
+            <column name="batch_id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiry_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Index for fast product lookups -->
+        <createIndex indexName="idx_product_id" tableName="inventory_batch">
+            <column name="product_id"/>
+        </createIndex>
+
+        <!-- Index for expiry date sorting (FIFO - First Expired, First Out) -->
+        <createIndex indexName="idx_expiry_date" tableName="inventory_batch">
+            <column name="expiry_date"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

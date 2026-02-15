@@ -1,0 +1,14 @@
+com\ecommerce\inventory\dto\BatchInfo.class
+com\ecommerce\inventory\InventoryServiceApplication.class
+com\ecommerce\inventory\dto\InventoryUpdateRequest.class
+com\ecommerce\inventory\dto\InventoryResponse.class
+com\ecommerce\inventory\controller\InventoryController$SuccessResponse.class
+com\ecommerce\inventory\model\InventoryBatch.class
+com\ecommerce\inventory\service\InventoryService.class
+com\ecommerce\inventory\factory\FifoInventoryHandler.class
+com\ecommerce\inventory\factory\InventoryHandler.class
+com\ecommerce\inventory\factory\InventoryHandlerFactory.class
+com\ecommerce\inventory\repository\InventoryBatchRepository.class
+com\ecommerce\inventory\controller\InventoryController.class
+com\ecommerce\inventory\dto\BatchUpdate.class
+com\ecommerce\inventory\controller\InventoryController$ErrorResponse.class

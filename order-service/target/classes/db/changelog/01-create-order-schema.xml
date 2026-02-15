@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="1" author="system">
+        <comment>Create order sequence and orders table with indexes</comment>
+
+        <!-- Create sequence for order IDs -->
+        <createSequence sequenceName="order_sequence"
+                        startValue="11"
+                        incrementBy="1"/>
+
+        <!-- Create orders table -->
+        <createTable tableName="orders">
+            <column name="order_id" type="BIGINT" autoIncrement="false">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reserved_from_batch_ids" type="VARCHAR(500)"/>
+            <column name="order_date" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Create indexes -->
+        <createIndex indexName="idx_product_id" tableName="orders">
+            <column name="product_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_status" tableName="orders">
+            <column name="status"/>
+        </createIndex>
+
+        <createIndex indexName="idx_order_date" tableName="orders">
+            <column name="order_date"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

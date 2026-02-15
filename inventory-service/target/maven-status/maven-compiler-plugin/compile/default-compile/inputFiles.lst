@@ -1,0 +1,12 @@
+C:\Users\Debal\OneDrive\Documents\Debalay Koerber Assignment\inventory-service\src\main\java\com\ecommerce\inventory\controller\InventoryController.java
+C:\Users\Debal\OneDrive\Documents\Debalay Koerber Assignment\inventory-service\src\main\java\com\ecommerce\inventory\dto\BatchInfo.java
+C:\Users\Debal\OneDrive\Documents\Debalay Koerber Assignment\inventory-service\src\main\java\com\ecommerce\inventory\dto\BatchUpdate.java
+C:\Users\Debal\OneDrive\Documents\Debalay Koerber Assignment\inventory-service\src\main\java\com\ecommerce\inventory\dto\InventoryResponse.java
+C:\Users\Debal\OneDrive\Documents\Debalay Koerber Assignment\inventory-service\src\main\java\com\ecommerce\inventory\dto\InventoryUpdateRequest.java
+C:\Users\Debal\OneDrive\Documents\Debalay Koerber Assignment\inventory-service\src\main\java\com\ecommerce\inventory\factory\FifoInventoryHandler.java
+C:\Users\Debal\OneDrive\Documents\Debalay Koerber Assignment\inventory-service\src\main\java\com\ecommerce\inventory\factory\InventoryHandler.java
+C:\Users\Debal\OneDrive\Documents\Debalay Koerber Assignment\inventory-service\src\main\java\com\ecommerce\inventory\factory\InventoryHandlerFactory.java
+C:\Users\Debal\OneDrive\Documents\Debalay Koerber Assignment\inventory-service\src\main\java\com\ecommerce\inventory\InventoryServiceApplication.java
+C:\Users\Debal\OneDrive\Documents\Debalay Koerber Assignment\inventory-service\src\main\java\com\ecommerce\inventory\model\InventoryBatch.java
+C:\Users\Debal\OneDrive\Documents\Debalay Koerber Assignment\inventory-service\src\main\java\com\ecommerce\inventory\repository\InventoryBatchRepository.java
+C:\Users\Debal\OneDrive\Documents\Debalay Koerber Assignment\inventory-service\src\main\java\com\ecommerce\inventory\service\InventoryService.java

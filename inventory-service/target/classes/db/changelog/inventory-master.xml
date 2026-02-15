@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  LIQUIBASE MASTER CHANGELOG
+  ==========================
+  This master changelog orchestrates all database changes for the Inventory Service.
+  It references individual changelog files in the correct order to:
+  1. Create database schema (tables, constraints, indexes)
+  2. Load initial data from CSV files
+  
+  Liquibase automatically tracks which changesets have been applied to prevent
+  duplicate execution.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- Step 1: Create database schema -->
+    <include file="db/changelog/01-create-inventory-schema.xml"/>
+    
+    <!-- Step 2: Load initial inventory data -->
+    <include file="db/changelog/02-load-inventory-data.xml"/>
+
+</databaseChangeLog>
