@@ -7,20 +7,7 @@ This project implements a complete microservices architecture for an e-commerce 
 1. **Inventory Service** (Port 8081) - Manages product inventory with batch tracking and expiry dates
 2. **Order Service** (Port 8080) - Handles order placement with real-time inventory validation
 
-## 🏗️ Architecture
 
-```
-┌─────────────────┐         REST API        ┌──────────────────┐
-│                 │ ───────────────────────> │                  │
-│  Order Service  │                          │ Inventory Service│
-│   (Port 8080)   │ <─────────────────────── │   (Port 8081)    │
-│                 │    Inventory Check       │                  │
-└─────────────────┘                          └──────────────────┘
-       │                                              │
-       │ H2 Database                                  │ H2 Database
-       │ (orderdb)                                    │ (inventorydb)
-       ▼                                              ▼
-```
 
 ## ✨ Key Features
 
@@ -28,7 +15,7 @@ This project implements a complete microservices architecture for an e-commerce 
 - **InventoryHandler Interface**: Allows multiple inventory handling strategies
 - **FifoInventoryHandler**: Current implementation using First-In-First-Out
 - **InventoryHandlerFactory**: Creates and manages handlers
-- **Extensibility**: Easy to add LIFO, Location-Based, or Priority handlers
+- **Extensibility**: Easy to add LIFO(added), Location-Based, or Priority handlers
 
 ### Technical Stack
 - **Java 17**
@@ -295,30 +282,6 @@ inventory:
     url: http://localhost:8081  # Inventory Service URL
 ```
 
-## 🐛 Troubleshooting
-
-### Port Already in Use
-If you see "Port 8080 is already in use":
-```bash
-# On Linux/Mac
-lsof -i :8080
-kill -9 <PID>
-
-# On Windows
-netstat -ano | findstr :8080
-taskkill /PID <PID> /F
-```
-
-### Services Can't Communicate
-1. Ensure Inventory Service is started first
-2. Check logs for connection errors
-3. Verify URL in `order-service/application.yml`
-
-### Database Issues
-1. Check H2 console at /h2-console
-2. Verify Liquibase changelogs ran successfully
-3. Check logs for migration errors
-
 ## 📚 Code Structure
 
 ```
@@ -353,67 +316,3 @@ ecommerce-microservices/
 └── README.md                        # This file
 ```
 
-## 🎯 Assignment Requirements Checklist
-
-✅ **Microservices**
-- [x] Inventory Service with batch management
-- [x] Order Service with inventory integration
-
-✅ **Database**
-- [x] H2 in-memory database
-- [x] Spring Data JPA
-- [x] Liquibase for schema and data loading
-
-✅ **Factory Pattern**
-- [x] InventoryHandler interface
-- [x] FifoInventoryHandler implementation
-- [x] InventoryHandlerFactory for extensibility
-
-✅ **REST APIs**
-- [x] GET /inventory/{productId}
-- [x] POST /inventory/update
-- [x] POST /order
-
-✅ **Inter-service Communication**
-- [x] WebClient for REST calls
-- [x] Order Service → Inventory Service
-
-✅ **Testing**
-- [x] JUnit 5 unit tests
-- [x] Mockito for mocking
-- [x] @SpringBootTest integration tests
-- [x] REST endpoint testing
-
-✅ **Additional Features**
-- [x] Lombok for boilerplate reduction
-- [x] Swagger/OpenAPI documentation
-- [x] Validation with Bean Validation
-- [x] Comprehensive logging
-- [x] Transaction management
-
-## 🚀 Next Steps / Future Enhancements
-
-1. **Add Authentication**: JWT tokens for API security
-2. **Add More Handlers**: LIFO, LocationBased inventory strategies
-3. **Order Cancellation**: Release inventory when orders cancelled
-4. **Notifications**: Email/SMS on order placement
-5. **Metrics**: Prometheus for monitoring
-6. **Docker**: Containerize both services
-7. **Service Discovery**: Eureka for dynamic service discovery
-8. **API Gateway**: Spring Cloud Gateway for routing
-
-## 📞 Support
-
-For issues or questions:
-1. Check H2 console for data verification
-2. Review application logs
-3. Verify Swagger documentation
-4. Check test cases for examples
-
-## 📄 License
-
-This is an educational project for learning Spring Boot microservices architecture.
-
----
-
-**Built with ❤️ using Spring Boot, Java 17, and modern microservices patterns**
