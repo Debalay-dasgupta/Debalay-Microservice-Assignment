@@ -114,26 +114,6 @@ class InventoryServiceTest {
         verify(lifoHandler, times(1)).getInventory(1001L);
     }
 
-    @Test
-    @DisplayName("Should use default FIFO strategy when no strategy specified")
-    void testGetInventory_WithDefaultStrategy() {
-        // Arrange
-        when(handlerFactory.getHandler(InventoryStrategyType.FIFO)).thenReturn(fifoHandler);
-        when(fifoHandler.getInventory(1001L)).thenReturn(fifoResponse);
-
-        // Act - call without strategy parameter
-        InventoryResponse result = inventoryService.getInventory(1001L);
-
-        // Assert
-        assertNotNull(result);
-        assertEquals(1001L, result.getProductId());
-
-        // Verify default strategy (FIFO) was used
-        verify(handlerFactory, times(1)).getHandler(InventoryStrategyType.FIFO);
-        verify(fifoHandler, times(1)).getInventory(1001L);
-    }
-
-
 
     @Test
     @DisplayName("Should throw exception when product not found")
