@@ -23,6 +23,7 @@ public class InventoryHandlerFactory {
 
         handlerList.forEach(handler -> {
             InventoryStrategyType type = handler.getStrategyType();
+            //handlers.put(FIFO, FifoInventoryHandler@def456)
             handlers.put(type, handler);
             log.info("Registered inventory handler: {} -> {}",
                     type, handler.getClass().getSimpleName());
