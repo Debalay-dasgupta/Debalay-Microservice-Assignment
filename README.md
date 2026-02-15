@@ -89,93 +89,78 @@ Wait for "Started OrderServiceApplication" message.
   - Username: `sa`
   - Password: (leave empty)
 
-## 📝 API Documentation
+# 📡 API Documentation (Metadata Summary)
 
-### Inventory Service Endpoints
+## 🏬 Inventory Service
+**Base URL:** `http://localhost:8081`
 
-#### 1. Get Inventory (GET)
-```
-GET http://localhost:8081/inventory/{productId}
-```
+### 1. Get Inventory
+- **Endpoint:** `GET /inventory/{productId}`
+- **Query Param:** `strategy` (optional: `FIFO` | `LIFO`, default: `FIFO`)
+- **Description:** Returns inventory batches sorted by strategy.
+- **Response Fields:**
+  - `productId`
+  - `productName`
+  - `batches[] { batchId, quantity, expiryDate }`
+  - `totalQuantity`
 
-**Example Request:**
-```bash
-curl http://localhost:8081/inventory/1001
-```
+---
 
-**Example Response:**
-```json
-{
-  "productId": 1001,
-  "productName": "Laptop",
-  "batches": [
-    {
-      "batchId": 1,
-      "quantity": 68,
-      "expiryDate": "2026-06-25"
-    }
-  ],
-  "totalQuantity": 68
-}
-```
+### 2. Get Available Strategies
+- **Endpoint:** `GET /inventory/strategies`
+- **Description:** Returns supported inventory strategies.
+- **Response Fields:**
+  - `strategies[]`
+  - `defaultStrategy`
 
-#### 2. Update Inventory (POST)
-```
-POST http://localhost:8081/inventory/update
-Content-Type: application/json
-```
+---
 
-**Example Request:**
-```bash
-curl -X POST http://localhost:8081/inventory/update \
-  -H "Content-Type: application/json" \
-  -d '{
-    "productId": 1001,
-    "totalQuantity": 10,
-    "batchUpdates": [
-      {"batchId": 1, "quantityDeducted": 10}
-    ]
-  }'
-```
+### 3. Update Inventory
+- **Endpoint:** `POST /inventory/update`
+- **Description:** Deducts inventory based on strategy (default: FIFO).
+- **Request Body:**
+  - `productId` (required)
+  - `totalQuantity` (required)
+  - `strategy` (optional: FIFO | LIFO)
+  - `batchUpdates[]`
+    - `batchId`
+    - `quantityDeducted`
+- **Response:**
+  - `message`
 
-**Example Response:**
-```json
-{
-  "message": "Inventory updated successfully for product 1001"
-}
-```
+---
 
-### Order Service Endpoints
+## 🛒 Order Service
+**Base URL:** `http://localhost:8080`
 
-#### Place Order (POST)
-```
-POST http://localhost:8080/order
-Content-Type: application/json
-```
+### 1. Place Order
+- **Endpoint:** `POST /order`
+- **Description:** Validates inventory and reserves stock.
+- **Request Body:**
+  - `productId` (required)
+  - `quantity` (required, min: 1)
+- **Response Fields:**
+  - `orderId`
+  - `productId`
+  - `productName`
+  - `quantity`
+  - `status`
+  - `reservedFromBatchIds[]`
+  - `message`
+  - `orderDate`
 
-**Example Request:**
-```bash
-curl -X POST http://localhost:8080/order \
-  -H "Content-Type: application/json" \
-  -d '{
-    "productId": 1002,
-    "quantity": 3
-  }'
-```
+---
 
-**Example Response:**
-```json
-{
-  "orderId": 11,
-  "productId": 1002,
-  "productName": "Smartphone",
-  "quantity": 3,
-  "status": "PLACED",
-  "reservedFromBatchIds": [9, 10],
-  "message": "Order placed. Inventory reserved.",
-  "orderDate": "2026-02-12T10:30:00"
-}
-```
+## ❌ Error Handling
+- **404 Not Found**
+  - `{ "error": "Product not found: {productId}" }`
+
+---
+
+## 📊 Strategy Types
+- **FIFO (default):** Oldest expiry first  
+- **LIFO:** Newest expiry first
+
 
 ## 🧪 Testing
 
