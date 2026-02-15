@@ -43,7 +43,8 @@ This project implements a complete microservices architecture for an e-commerce 
 
 ### Step 1: Clone/Extract Project
 ```bash
-cd ecommerce-microservices
+git clone https://github.com/Debalay-dasgupta/Debalay-Microservice-Assignment.git
+cd Debalay-Microservice-Assignment
 ```
 
 ### Step 2: Build Both Services
